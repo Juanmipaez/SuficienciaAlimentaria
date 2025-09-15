@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulador de Despensa Sostenible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Simulador de Despensa Sostenible</h1>
+    <p>
+      Arma tu canasta con un <b>presupuesto semanal del hogar</b> y busca cumplir metas de
+      <b>nutrición</b> y <b>bajo desperdicio</b> por persona.
+    </p>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <section class="panel">
+    <h2>Catálogo</h2>
+    <div class="content">
+      <div class="leyenda" style="margin-bottom:10px">
+        <span class="pill">Arrastra un alimento a la zona de compra →</span>
+        <span class="pill">Click en “+”/“−” para ajustar cantidades</span>
+        <span class="pill">Precios y nutrientes por porción</span>
+      </div>
+      <div id="catalogo" class="catalogo" aria-label="Lista de alimentos"></div>
+    </div>
+  </section>
+
+  <aside class="panel shop" aria-live="polite">
+    <h2>Tu canasta</h2>
+    <div class="content" style="display:grid; gap:12px">
+      <div class="grid grid-2">
+        <div>
+          <label for="presupuesto">Presupuesto semanal del hogar (USD)</label>
+          <div style="display:flex; align-items:center; gap:8px">
+            <input id="presupuesto" type="range" min="10" max="240" step="5" value="60" aria-label="Presupuesto">
+            <output id="presupuestoOut">$60</output>
+          </div>
+          <div class="barra" aria-hidden="true"><div id="gastoBar"></div></div>
+          <small class="footer">Tip: ajusta el presupuesto y observa el impacto.</small>
+        </div>
+        <div>
+          <label for="personas">Tamaño del hogar</label>
+          <div style="display:flex; align-items:center; gap:8px">
+            <select id="personas" aria-label="Número de personas">
+              <option value="1" selected>1 persona</option>
+              <option value="2">2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5 personas</option>
+              <option value="6">6 personas</option>
+              <option value="7">7 personas</option>
+              <option value="8">8 personas</option>
+            </select>
+            <small class="footer">Metas y desperdicio se ajustan por persona.</small>
+          </div>
+        </div>
+      </div>
+
+      <div id="drop" class="drop empty" tabindex="0" role="list" aria-label="Zona de compra">
+        Suelta aquí tus alimentos
+      </div>
+
+      <div class="resumen">
+        <div class="grid">
+          <div class="kpi"><h4>Costo total semanal (hogar)</h4><div class="v" id="kCosto">$0</div></div>
+          <div class="kpi"><h4>Calorías por persona (promedio diario)</h4><div class="v" id="kCal">0 kcal <span id="calStat"></span></div></div>
+          <div class="kpi"><h4>Proteína por persona (promedio diario)</h4><div class="v" id="kProt">0 g <span id="protStat"></span></div></div>
+          <div class="kpi"><h4>Fruta/verdura por persona (promedio diario)</h4><div class="v" id="kFV">0 porciones <span id="fvStat"></span></div></div>
+        </div>
+        <div class="actions">
+          <button id="evaluar" class="btn">Evaluar suficiencia</button>
+          <button id="reset" class="btn" aria-label="Vaciar canasta">Vaciar</button>
+          <span class="footer">Supuesto: canasta semanal para N personas. Metas mostradas son promedios diarios por persona.</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
